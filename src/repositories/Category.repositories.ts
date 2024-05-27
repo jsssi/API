@@ -18,7 +18,7 @@ class CategoryRepository {
         console.log("Categoria criada com sucesso");
       }
     })
-    
+
   }
   async list() {
     const sql = "SELECT * FROM Category";
@@ -42,7 +42,7 @@ class CategoryRepository {
     const sql = "SELECT name FROM Category WHERE name = ?";
     try {
       const result = await new Promise((resolve, reject) => {
-        connection.query(sql,[name],(err, result) => {
+        connection.query(sql, [name], (err, result) => {
           if (err) {
             reject(err);
           } else {
