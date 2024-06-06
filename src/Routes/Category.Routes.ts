@@ -2,9 +2,10 @@ import { Router } from 'express';
 import { Request, Response } from 'express';
 import { CategoryRepository } from '../repositories/Category.repositories';
 import { CreateCategoryService } from '../../service/CreateCategoryService';
+import { SqlCategoryRepository } from '../repositories/SqlsCategoryRepository';
 
 const CategoryRoutes = Router();
-const CategoriesRespositories = new CategoryRepository();
+const CategoriesRespositories = new SqlCategoryRepository();
 const CategoryService = new CreateCategoryService(CategoriesRespositories);
 
 CategoryRoutes.post('/create', async (request: Request, response: Response) => {

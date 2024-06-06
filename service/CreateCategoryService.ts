@@ -1,8 +1,7 @@
-import { CategoryRepository } from "../src/repositories/Category.repositories";
-
+import { IcategoryRepository } from "../src/repositories/IcategoryRepository";
 
 class CreateCategoryService{
-    constructor(private CategoriesRespositories:CategoryRepository ){}
+    constructor(private CategoriesRespositories:IcategoryRepository){}
      async execute(name:string,description:string){
         try {
             const CategoryExists = await this.CategoriesRespositories.findByname(name);

@@ -1,12 +1,9 @@
 import { connection } from "../connection/connection";
 import { CreateCategoria } from "../model/Category";
+import { IcategoryRepository, ICreateCategoryDTO } from "./IcategoryRepository";
 
-interface ICreateCategoryDTO {
-  name: string;
-  description: string;
 
-}
-class CategoryRepository {
+class CategoryRepository implements IcategoryRepository {
   create({ name, description }: ICreateCategoryDTO): void {
 
     const Category = new CreateCategoria(name, description);
@@ -20,11 +17,11 @@ class CategoryRepository {
     })
 
   }
-  async list() {
+  async list():Promise<string[]>{
     const sql = "SELECT * FROM Category";
     try {
-      const result = await new Promise((resolve, reject) => {
-        connection.query(sql, (err, result) => {
+      const result = await new Promise<string[]>((resolve, reject) => {
+        connection.query(sql, (err, result:[any]) => {
           if (err) {
             reject(err);
           } else {
@@ -36,6 +33,8 @@ class CategoryRepository {
       return result;
     } catch (err) {
       console.log(err);
+      throw err
+     
     }
   }
   async findByname(name: string): Promise<string[]> {
@@ -51,7 +50,7 @@ class CategoryRepository {
         });
       });
       console.log(result.length)
-      return result;
+      return result
     } catch (err) {
       console.log(err);
       throw err;
