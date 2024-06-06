@@ -38,22 +38,23 @@ class CategoryRepository {
       console.log(err);
     }
   }
-  async findByname(name: string) {
-    const sql = "SELECT name FROM Category WHERE name = ?";
+  async findByname(name: string): Promise<string[]> {
+    const sql = "SELECT name FROM Category WHERE name =?";
     try {
-      const result = await new Promise((resolve, reject) => {
-        connection.query(sql, [name], (err, result) => {
+      const result = await new Promise<string[]>((resolve, reject) => {
+        connection.query(sql, [name], (err, result: [any]) => {
           if (err) {
             reject(err);
           } else {
-            resolve(result);
+            resolve(result)
           }
         });
       });
-      console.log(result);
+      console.log(result.length)
       return result;
     } catch (err) {
       console.log(err);
+      throw err;
     }
   }
 }
